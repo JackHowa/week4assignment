@@ -23,17 +23,29 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 
 // Turns out, making the .1->10 change grew the bars so much,
 // it probably didn't appear on page. 
-// Because, without it, the 
+// Because, without it, the bars are all together 
+// - no space in between.
+// href https://github.com/mbostock/d3/wiki/Ordinal-Scales
 
-
-
-// via https://github.com/mbostock/d3/wiki/Ordinal-Scales
+// On the other hand (or axis), there isn't padding. 
+// The y axis scale is linear, not ordinal. 
+// Therefore, it's a quantitate scale that's for numbers. 
+// And so that padding doesn't make a difference,
+// nor does the fact that the #s are continuous 
+// - not discrete - variables. 
+// href https://github.com/mbostock/d3/wiki/Quantitative-Scales#linear
 
 var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
 
 var y = d3.scale.linear()
     .range([height, 0]);
+
+// 3. 
+// x axis are drawn using d3's axis component. 
+// 
+
+// href https://github.com/mbostock/d3/wiki/SVG-Axes 
 
 var xAxis = d3.svg.axis()
     .scale(x)
@@ -70,7 +82,7 @@ d3.json("js/baseballcard.json", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Frequency");
+      .text("Hits");
 
   svg.selectAll(".bar")
       .data(data.stats)
